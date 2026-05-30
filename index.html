@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="description" content="خذ بيدي دربي - تطبيق توجيه ودعم">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<title>خذ بيدي دربي</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f0f23;
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 20px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.header h1 {
+    font-size: 2.5em;
+    color: #ffd700;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(255,215,0,0.3);
+}
+.header p {
+    font-size: 1.1em;
+    color: #aaa;
+}
+
+/* Cards */
+.card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s ease;
+}
+.card:hover {
+    border-color: rgba(255,215,0,0.3);
+    transform: translateY(-2px);
+}
+.card h2 {
+    color: #ffd700;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.card p, .card li {
+    color: #ccc;
+    line-height: 1.8;
+    font-size: 1em;
+}
+.card ul { padding-right: 20px; }
+.card li { margin-bottom: 8px; }
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #ffd700;
+    color: #1a1a2e;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    text-decoration: none;
+}
+.btn:hover {
+    background: #ffec8b;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,215,0,0.4);
+}
+.btn-outline {
+    background: transparent;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+}
+.btn-outline:hover {
+    background: #ffd700;
+    color: #1a1a2e;
+}
+
+/* Input */
+input[type="text"], textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1em;
+    margin-bottom: 15px;
+    font-family: inherit;
+}
+input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: #ffd700;
+}
+
+/* Progress */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+.progress-fill {
+    height: 100%;
+    background: #ffd700;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.card { animation: fadeIn 0.6s ease forwards; }
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .header h1 { font-size: 1.8em; }
+    .container { padding: 15px; }
+    .card { padding: 18px; }
+}
+
+/* Stars background */
+.stars {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0));
+    background-size: 200px 200px;
+    opacity: 0.3;
+}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="container">
+
+    <div class="header">
+        <h1>🤝 خذ بيدي دربي</h1>
+        <p>تطبيق توجيه ودعم لمساعدتك في رحلتك</p>
+    </div>
+
+    <div class="card">
+        <h2>🎯 هدفك</h2>
+        <p>اكتب هدفك اليومي أو الأسبوعي وسأساعدك في تحقيقه:</p>
+        <input type="text" id="goalInput" placeholder="مثال: أريد تعلم البرمجة...">
+        <button class="btn" onclick="saveGoal()">💾 حفظ الهدف</button>
+        <button class="btn btn-outline" onclick="clearGoal()">🗑️ مسح</button>
+        <div id="goalDisplay" style="margin-top:15px; color:#ffd700; font-size:1.1em;"></div>
+    </div>
+
+    <div class="card">
+        <h2>📊 تقدمك</h2>
+        <p>حدد نسبة إنجاز هدفك:</p>
+        <input type="range" id="progressRange" min="0" max="100" value="0" style="width:100%; margin:10px 0;">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+        <p id="progressText" style="text-align:center; color:#ffd700; font-size:1.2em; font-weight:bold;">0%</p>
+    </div>
+
+    <div class="card">
+        <h2>💡 نصائح وإرشادات</h2>
+        <ul>
+            <li>ابدأ بخطوات صغيرة وواضحة</li>
+            <li>خصص وقتًا يوميًا للعمل على هدفك</li>
+            <li>احتفل بإنجازاتك الصغيرة</li>
+            <li>لا تخف من طلب المساعدة</li>
+            <li>تذكر: كل خبير كان مبتدئاً يوماً ما</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>📝 ملاحظاتك</h2>
+        <textarea id="notesArea" rows="4" placeholder="اكتب ملاحظاتك وأفكارك هنا..."></textarea>
+        <button class="btn" onclick="saveNotes()">💾 حفظ الملاحظات</button>
+    </div>
+
+    <div class="card">
+        <h2>⏰ تذكيرات</h2>
+        <p>اضبط تذكيراً لمواصلة العمل:</p>
+        <input type="text" id="reminderText" placeholder="نص التذكير...">
+        <button class="btn" onclick="setReminder()">🔔 تعيين تذكير</button>
+        <div id="reminderDisplay" style="margin-top:15px; color:#4CAF50;"></div>
+    </div>
+
+    <div class="footer">
+        <p>🤝 خذ بيدي دربي - معك في كل خطوة</p>
+        <p style="font-size:0.8em; margin-top:10px;">تطبيق يعمل بدون إنترنت</p>
+    </div>
+
+</div>
+
+<script>
+// Load saved data
+window.onload = function() {
+    const savedGoal = localStorage.getItem('myGoal');
+    const savedProgress = localStorage.getItem('myProgress');
+    const savedNotes = localStorage.getItem('myNotes');
+    const savedReminder = localStorage.getItem('myReminder');
+
+    if (savedGoal) {
+        document.getElementById('goalInput').value = savedGoal;
+        document.getElementById('goalDisplay').textContent = '🎯 هدفك: ' + savedGoal;
+    }
+    if (savedProgress) {
+        document.getElementById('progressRange').value = savedProgress;
+        document.getElementById('progressFill').style.width = savedProgress + '%';
+        document.getElementById('progressText').textContent = savedProgress + '%';
+    }
+    if (savedNotes) {
+        document.getElementById('notesArea').value = savedNotes;
+    }
+    if (savedReminder) {
+        document.getElementById('reminderDisplay').textContent = '🔔 ' + savedReminder;
+    }
+};
+
+// Progress bar
+const progressRange = document.getElementById('progressRange');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+
+progressRange.addEventListener('input', function() {
+    const val = this.value;
+    progressFill.style.width = val + '%';
+    progressText.textContent = val + '%';
+    localStorage.setItem('myProgress', val);
+});
+
+function saveGoal() {
+    const goal = document.getElementById('goalInput').value;
+    if (goal.trim()) {
+        localStorage.setItem('myGoal', goal);
+        document.getElementById('goalDisplay').textContent = '🎯 هدفك: ' + goal;
+        alert('✅ تم حفظ الهدف!');
+    } else {
+        alert('⚠️ الرجاء كتابة هدف أولاً');
+    }
+}
+
+function clearGoal() {
+    localStorage.removeItem('myGoal');
+    localStorage.removeItem('myProgress');
+    document.getElementById('goalInput').value = '';
+    document.getElementById('goalDisplay').textContent = '';
+    document.getElementById('progressRange').value = 0;
+    progressFill.style.width = '0%';
+    progressText.textContent = '0%';
+    alert('🗑️ تم المسح!');
+}
+
+function saveNotes() {
+    const notes = document.getElementById('notesArea').value;
+    localStorage.setItem('myNotes', notes);
+    alert('✅ تم حفظ الملاحظات!');
+}
+
+function setReminder() {
+    const text = document.getElementById('reminderText').value;
+    if (text.trim()) {
+        localStorage.setItem('myReminder', text);
+        document.getElementById('reminderDisplay').textContent = '🔔 ' + text;
+        alert('✅ تم تعيين التذكير!');
+    } else {
+        alert('⚠️ الرجاء كتابة نص التذكير');
+    }
+}
+
+// Register Service Worker for offline
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker registered'))
+        .catch(err => console.log('Service Worker error:', err));
+}
+</script>
+
+</body>
+</html>
